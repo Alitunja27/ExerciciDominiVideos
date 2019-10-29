@@ -50,38 +50,45 @@ public class User {
         return mainUserData;
     }
 
-    public static List<List<String>> UsersVideos(Integer addVideo, List<List<String>> mainUserData) throws Exception {
-
-        List<String> videoList = new ArrayList<>();
-        System.out.println("Please insert the URL");
-        String url = new Scanner(System.in).nextLine();
-        if (url == null || url.isEmpty()) {
-            throw new Exception("Please don't leave any space empty");
-        }
-        System.out.println("Please insert the Title");
-        String title = new Scanner(System.in).nextLine();
-        if (title == null || title.isEmpty()) {
-            throw new Exception("Please don't leave any space empty");
-        }
-        System.out.println("How many tags you want to add");
-        Integer tagsN = new Scanner(System.in).nextInt();
-        List<String> tagsList = new ArrayList<>();
-
-        for (Integer i = 0; i < tagsN; i++) {
-            System.out.println("Pleas insert the " + (i + 1) + " tag:");
-            String tags = new Scanner(System.in).nextLine();
-            if (tags == null || tags.isEmpty()) {
+    public static List<List<String>> UsersVideos(List<List<String>> mainUserData) throws Exception {
+        System.out.println("How many videos you want to upload:");
+        Integer addVideo = new Scanner(System.in).nextInt();
+        for (Integer j=0; j<addVideo; j++) {
+            List<String> videoList = new ArrayList<>();
+            System.out.println("Please insert the URL");
+            String url = new Scanner(System.in).nextLine();
+            if (url == null || url.isEmpty()) {
                 throw new Exception("Please don't leave any space empty");
             }
-            tagsList.add(tags);
+            System.out.println("Please insert the Title");
+            String title = new Scanner(System.in).nextLine();
+            if (title == null || title.isEmpty()) {
+                throw new Exception("Please don't leave any space empty");
+            }
+            System.out.println("How many tags you want to add");
+            Integer tagsN = new Scanner(System.in).nextInt();
+            List<String> tagsList = new ArrayList<>();
+
+            for (Integer i = 0; i < tagsN; i++) {
+                System.out.println("Pleas insert the " + (i + 1) + " tag:");
+                String tags = new Scanner(System.in).nextLine();
+                if (tags == null || tags.isEmpty()) {
+                    throw new Exception("Please don't leave any space empty");
+                }
+                tagsList.add(tags);
+            }
+            Video videoInfo = new Video(url, title, tagsList);
+            videoList.add(videoInfo.url);
+            videoList.add(videoInfo.title);
+            videoList.addAll(tagsList);
+            mainUserData.add(videoList);
         }
-        Video videoInfo = new Video(url, title, tagsList);
-        videoList.add(videoInfo.url);
-        videoList.add(videoInfo.title);
-        videoList.addAll(tagsList);
-        mainUserData.add(videoList);
-        //}
         return mainUserData;
+    }
+    public static void displayVideoList(List<List<String>> mainUserData){
+        for (Integer i=1; i < mainUserData.size(); i++) {
+            System.out.println("Video " + i + " :" + mainUserData.get(i));
+        }
     }
 
     public static boolean validatingUser (User registeredUser, User userInput){

@@ -21,15 +21,10 @@ public class Main {
             System.out.println("New user data " + mainUserData);
             System.out.println("Do you want to add a video? Yes (Y) or No (N)");
             userOption = new Scanner(System.in).nextLine();
+
             if (userOption.equalsIgnoreCase("Y")) {
-                System.out.println("How many videos you want to upload:");
-                addVideo = new Scanner(System.in).nextInt();
-                for (j = 0; j < addVideo; j++) {
-                    mainUserData = User.UsersVideos(addVideo, mainUserData);
-                }
-                for (i = 1; i < mainUserData.size(); i++) {
-                    System.out.println("Video " + i + " :" + mainUserData.get(i));
-                }
+                mainUserData = User.UsersVideos(mainUserData);
+                User.displayVideoList(mainUserData);
             } else if (userOption.equalsIgnoreCase("N")){
                 System.out.println("Thank you!, see you next time.");
             } else {
@@ -49,24 +44,16 @@ public class Main {
 
                 //View list of video of the user
                 if (userOption.equalsIgnoreCase("VL")){
-                    for (i=1; i<mainUserData.size(); i++){
-                        System.out.println("Video " + i + " :" + mainUserData.get(i));
-                    }
-
+                    User.displayVideoList(mainUserData);
                 //Add new list of video into the user
                 }else if (userOption.equalsIgnoreCase("NV")){
-                    System.out.println("How many videos you want to upload:");
-                    addVideo = new Scanner(System.in).nextInt();
-                    for (j=0; j<addVideo; j++) {
-                        mainUserData = User.UsersVideos(addVideo, mainUserData);
-                    }
-                    for (i=1; i < mainUserData.size(); i++) {
-                        System.out.println("Video " + i + " :" + mainUserData.get(i));
-                        }
+                    mainUserData = User.UsersVideos(mainUserData);
+                    User.displayVideoList(mainUserData);
                 }else {
                     System.out.println("This is not a valid option, please choose to see your Videos List \"VL\" or if you want to Add a new video \"NV\"");
                     throw new Exception ();
                 }
+                
             } else {
                 throw new Exception("Oops something went wrong, please try again"); //info entered and info stored does not match
             }
